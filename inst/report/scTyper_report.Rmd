@@ -1,0 +1,262 @@
+---
+title: "scTyper Report"
+output:
+  html_document: 
+    theme: united
+    toc: yes
+    toc_depth: 4
+  word_document:
+    toc: yes
+  pdf_document:
+    highlight: zenburn
+    toc: yes
+always_allow_html: yes
+---
+
+```{r, echo=FALSE, eval=T, message=F}
+if(class(report.summary$seurat)=="Seurat") seurat=report.summary$seurat
+```
+      
+```{r setup, include=TRUE, echo=FALSE,message=FALSE}
+knitr::opts_chunk$set(echo = FALSE, comment = NA, message = FALSE, warning=FALSE, result='asis')
+knitr::opts_chunk$set(fig.show=T, fig.height = 2, fig.width = 2)
+options("scipen"=100, "digits"=4)
+#panderOptions('table.caption.prefix','')
+knitr::opts_chunk$set(eval = F)
+
+```
+
+
+---
+
+## Report Summary
+______________________________________________________________\             
+
+##### **Project Name** : `r report.summary["proj.name"]`\                 
+##### **Date** : `r Sys.time()`\                  
+##### **User** : `r Sys.info()["user"]`\          
+##### **Processed excuted pipeline** : `r report.summary["pipeline.des"]` 
+##### **Input data type** : `r report.summary["input.data"] `\
+##### **Runtime** : `r as.character(report.summary["runtime"])`\          
+_______________________________________________________________\             
+
+scTyper supports a report summarizing for cell typing pipeline. 
+This report provides information of the parameters used to run, samples statistics and visualize assigned cell types using t-SNE plot and heatmap.
+
+---
+
+### 1. Parameters used
+
+```{r global.param, echo=FALSE, eval=T}
+report.summary["Global configuration parameters"]=report.summary["global.conf.param.df"]
+panderOptions('table.split.table', Inf)
+pander(report.summary["Global configuration parameters"], justify = "left", style = "multiline", split.table = Inf, caption = "Global configuration parameters")
+
+```
+
+```{r qc.param, echo=FALSE, eval=T}
+report.summary["FastQC parameters"]=report.summary["qc.param.df"]
+panderOptions('table.split.table', Inf)
+if(report.summary$qc==TRUE) pander(report.summary["FastQC parameters"], justify = "center", style = "multiline", split.table = Inf, caption = "QC parameters")
+```
+
+```{r cellranger.param, echo=FALSE, eval=T}
+report.summary["CellRanger parameters"]=report.summary["cellranger.param.df"]
+panderOptions('table.split.table', Inf)
+if(report.summary$run.cellranger==T) pander(report.summary["CellRanger parameters"], justify = "center", style = "multiline", split.table = Inf, caption = "Cell Ranger parameters")
+```
+
+```{r eval=T, table.height=3.5, table.width=2}
+report.summary["Cell typing parameters"]=report.summary["scTyping.param.df"]
+panderOptions('table.split.table', Inf)
+pander(report.summary["Cell typing parameters"], justify = "left", style = "multiline", split.table = Inf, caption = "Cell Typing parameters", split.cells=c(5, 5))
+
+```
+
+
+### 2. Statistic of the input data
+
+##### - **Number of cells:** `r ncol(seurat)`
+##### - **Number of samples:** `r length(unique(seurat$sample.name))`
+
+##### - **Sample statistics**
+
+```{r eval=T}
+cells=table(seurat$sample.name)
+nCount.mean=tapply(seurat$nCount_RNA, list(seurat$sample.name), mean)
+nFeature.mean=tapply(seurat$nFeature_RNA, list(seurat$sample.name), mean)
+
+seurat$nGenes=colSums(as.matrix(seurat[['RNA']]@counts)>0)
+nGene.mean=tapply(seurat$nGenes, list(seurat$sample.name), mean)
+
+stat.df=data.frame("sampleID"=names(cells), "Number of Cells"=as.numeric(cells), "Average count of nUMIs"=nCount.mean, "Average number of genes"=nFeature.mean, row.names = NULL)
+panderOptions('table.split.table', Inf)
+pander(stat.df, justify = "left", style = "multiline", split.table = Inf)
+```
+
+---
+
+
+### 3. Result of pre-processing
+
+```{r, echo=F, eval=T}
+if(report.summary$qc==TRUE){
+  child_docs <- system.file("report/scTyper_report.qc.Rmd", package = "scTyper")
+}else{
+  child_docs <- NULL
+print("FastQC process is skipped")
+}
+```
+
+\newpage
+```{r child=child_docs, eval=T}
+```
+
+
+### 4. Result of cellranger - summary metrics
+
+```{r, , echo=FALSE, eval=T}
+if(report.summary$run.cellranger==TRUE){
+kable(report.summary$metrics_summary) %>%
+  kable_styling() %>%
+  scroll_box(width = "900px", height = "200px")
+}else{ print("CellRanger process is skipped")}
+
+```
+
+### 5. Result of cell typing
+
+scTyper provides three cell typing methods of the nearest template prediction (NTP), enrichment scores(ES) and average values for cell markers.
+Cell types are assigned according to the marker gene and cell typing method specified by the user as parameters.
+
+#### 5-1. Cell typing methods and cell markers used
+
+- **Cell typing method**: `r report.summary$cell.typing.method`
+- **infer-CNV Malignant cell typing**: `r if(report.summary$run.inferCNV) "Yes" else "No"`
+- **Cell marker sets**: `r report.summary$marker`
+
+```{r eval=F}
+markers=get.markerList(report.summary$marker)
+pander(markers)
+```
+
+---
+
+#### 5-2. Cell type statistics
+
+```{r eval=T}
+if(report.summary$run.inferCNV==TRUE){
+  mal.stat=paste0("In malignant cell typing, a total ", sum(seurat$cell.type=="Malignant_cell")) 
+  if(report.summary$cell.typing.method=="NTP"){
+    mal.stat=paste0(mal.stat," malignant cells were assigned by NTP (n= ",sum(seurat$ntp==report.summary$malignant.cell.type), "), or inferCNV (n= ", sum(seurat$cnv.st),")")
+  }else if(report.summary$cell.typing.method=="ES"){
+    mal.stat=paste0(mal.stat," malignant cells were assigned by ES (n= ",sum(seurat$es==report.summary$malignant.cell.type), "), or inferCNV (n= ", sum(seurat$cnv.st),")")
+  }else if(report.summary$cell.typing.method=="Average"){
+    mal.stat=paste0(mal.stat," malignant cells were assigned by Average (n= ",sum(seurat$average==report.summary$malignant.cell.type), "), or inferCNV (n= ", sum(seurat$cnv.st),")")
+  }
+}else{
+  mal.stat="malignant cell typing(inferCNV) process skipped. "
+}
+
+```
+
+_`r mal.stat`_
+
+**Cell type statistics across samples**
+
+```{r eval=T}
+
+t.tbl=table(seurat$cell.type)
+tbl=cbind(t.tbl, table(seurat$cell.type, seurat$sample.name))
+colnames(tbl)[1]="Total"
+panderOptions('table.split.table', Inf)
+pander(tbl, justify = "left", style = "multiline")
+```
+
+---
+
+#### 5-3. Distribution of cell types
+
+```{r eval=T}
+if(report.summary$run.inferCNV) seurat$cell.type=factor(as.character(seurat$cell.type), levels=c("Malignant_cell", setdiff(levels(seurat$cell.type), "Malignant_cell")))
+tbl=table(seurat$cell.type)
+s.tbl=table(seurat$cell.type, seurat$sample.name); r.tbl=apply(s.tbl, 2, function(a) a/sum(a))
+```
+
+**Distribution of inferred cell types**
+
+```{r eval=T, fig.height=3, fig.width=3}
+par(mar=c(7,5,0,0));barplot(tbl, las=2, ylab="Number of cells", cex.names=0.8, cex.axis=0.8)
+```
+
+**Distibution of cell types across samples**
+
+```{r eval=T, fig.height=3, fig.width=7}
+par(mar=c(7,5,0,10))
+barplot(r.tbl, las=2, ylab="Proportion (%)", cex.names=0.8, cex.axis=0.8, legend.text = rownames(r.tbl), args.legend = list(x = 'right', bty='n', inset=c(-0.3,0), xpd = TRUE, cex=0.7))
+```
+
+**t-SNE plots**
+
+- **Inferred cell types by `r report.summary$cell.typing.method`**
+
+```{r eval=T, fig.height=3, fig.width=5}
+cols=rainbow_hcl(length(levels(seurat$cell.type))); names(cols)=levels(seurat$cell.type)
+p1=DimPlot(seurat,reduction = 'tsne',group.by="cell.type",label=F,cols=cols, pt.size=0.2); p1=LabelClusters(plot = p1, id = "cell.type", size = 3)
+p1
+```
+
+- **Malignant cells by inferCNV**
+
+```{r eval=T, fig.height=3, fig.width=4.5}
+if(report.summary$run.inferCNV==TRUE){
+  p4=DimPlot(seurat,reduction = 'tsne',group.by="malignant.st",label=F, pt.size=0.2, cols=c("grey90", "red")) 
+}else{
+  p4="malignant cell typing(inferCNV) process is skipped. "
+}
+
+p4
+```
+
+- **CNV score by inferCNV**
+
+```{r eval=T, fig.height=3, fig.width=4}
+if(report.summary$run.inferCNV==TRUE){
+  p5=FeaturePlot(seurat, features = "cnv.score", cols=c("grey90", "blue"), label=FALSE, pt.size=0.2) 
+}else{
+  p5="malignant cell typing(inferCNV) process is skipped. "
+}
+
+p5
+
+```
+
+
+- **Seurat clusters**
+
+```{r eval=T, fig.height=3.5, fig.width=5}
+p2=DimPlot(seurat,reduction = 'tsne',group.by="seurat_clusters",label=F, pt.size=0.2); p2=LabelClusters(plot = p2, id = "seurat_clusters", size = 3)
+p2
+```
+
+- **Samples**
+
+```{r eval=T, fig.height=3.5, fig.width=7}
+p3=DimPlot(seurat,reduction = 'tsne',group.by="sample.name",label=F, pt.size=0.2)
+p3
+```
+
+
+- **Cell markers heatmap**
+
+A heatmap shows the cell typing result and the gene expression levels of cell marker gene sets from `r  report.summary$marker`. For each method, the assigned cell types are indicated by color bars.  
+
+```{r, eval=T, results='asis',fig.keep='all', fig.show=TRUE, fig.height=6, fig.width=5.5, message=TRUE}
+draw.heatmap(seurat = report.summary$seurat,
+             wd = report.summary$wd,
+             run.inferCNV = report.summary$run.inferCNV,
+             slot = report.summary$slot,
+             marker=report.summary$marker)
+
+```
+
