@@ -1,5 +1,5 @@
 
-# scTyper: an analysis pipeline for cell typing of single-cell RNA-seq data
+# scTyper: a comprehensive pipeline for the cell typing analysis of single-cell RNA-seq data
 ____________________________________________________________________________________________________________________________</br>
 
 
