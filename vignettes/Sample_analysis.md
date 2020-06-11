@@ -1,3 +1,4 @@
+
 # scTyper: a comprehensive pipeline for the cell typing analysis of single-cell RNA-seq data
 ____________________________________________________________________________________________________________________________</br>
 
@@ -364,7 +365,7 @@ The scTyper package provides manually curated and pre-installed cell marker data
 - **Note**: If there is only one gene in the cell type of the marker, the user should use "Average" of the cell typing method.
 - **Update of marker database** </br>
 After changing the'sigTyper.db.txt' file in the'extdata' directory to the latest version, you can use the "update.sig.db()" function to update the cell marker database.
-    
+
 ```r
 # example
 update.sig.db(sig.db.path = system.file(sig.db.path="extdata/sigTyper.DB.txt", package = "scTyper"), db.name=c("sigTyper.db"), output.dir=system.file("/data",package = "scTyper"))
@@ -389,17 +390,17 @@ When `run.inferCNV=TRUE`, users should be careful with confusing parameter inser
         cnv.score: copy number variation score estimated by malignant cell typing (inferCNV) </br>
         malignant.st: logical value of malignant cell estimated by malignant cell typing (inferCNV) </br>
 
-    
+
 ```r
 # The returned object of the scTyper() function
 celltyped.seurat
 ```
-    
+
 ```
 An object of class Seurat 
 23686 features across 5902 samples within 1 assay 
 Active assay: RNA (23686 features, 2000 variable features)
-2 dimensional reductions calculated: pca, tsne
+ 2 dimensional reductions calculated: pca, tsne
 ```
 
 
@@ -425,34 +426,324 @@ If ***“report.mode=TRUE”*** is set true in the scTyper(), the user will get 
 t.tbl=table(celltyped.seurat$cell.type)
 tbl=cbind(t.tbl, table(celltyped.seurat$cell.type, celltyped.seurat$sample.name))
 colnames(tbl)[1]="Total"
-panderOptions('table.split.table', Inf)
-pander(tbl, split.cells = 10)
+kable(tbl) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
 ```
 
-
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        &nbsp;          Total   Cancer_P0   Cancer_P10   Cancer_P12   Cancer_P13   Cancer_P16   Cancer_P17   Cancer_P18   Cancer_P20   Cancer_P22   Cancer_P23   Cancer_P24   Cancer_P25   Cancer_P26   Cancer_P28   Cancer_P5   Cancer_P6   Cancer_P7   Cancer_P8   LymphNode_P0   LymphNode_P20   LymphNode_P25   LymphNode_P26   LymphNode_P28   LymphNode_P5 
----------------------- ------- ----------- ------------ ------------ ------------ ------------ ------------ ------------ ------------ ------------ ------------ ------------ ------------ ------------ ------------ ----------- ----------- ----------- ----------- -------------- --------------- --------------- --------------- --------------- --------------
-  **B_Plasma_cell**      190        5           44           2            10           12           6            18           0            0            0            0            6            0            0            3           4           0          13            12              0              27               3              22              3       
-
-  **Dendritic_cell**     222       17           4            12           35           24           8            30           0            5            0            1            30           2            8            5           1           0          10            1               0              19               4               4              2       
-
- **Endothelial_cell**    250        2           7            0            2            36           18           18           2            1            0            2            5            3            17           9          42           0          26            1               0               9              10              12              28      
-
-    **Fibroblast**       637        8           23           0            2            57           38           29           7            26           0            55           48           33          104          15          39           1          19            4               0              31              38              52              8       
-
-    **Macrophage**       125        4           1            1            4            13           2            23           1            0            0            4            5            2            8           41           3           0           3            0               0               4               1               4              1       
-
-  **Malignant_cell**    2739       20           5            12           16          102          357          214          329          123           0            30          191           63           78          108         211          6          12            0              343             91              217             112             99      
-
-    **Mast_cell**        125        6           1            0            4            25           7            12           0            22           0            20           11           1            0            4           1           0           3            1               0               3               0               2              2       
-
-     **Myocyte**         51         2           0            0            0            4            0            2            0            0            0            0            15           1            16           1           0           0           0            0               0               5               1               4              0       
-
-      **T_cell**        1008       184          0           121           10          269           45          161           0            0            50           0            66           3            0           23           0           0          18            1               0              56               1               0              0       
-
- **Unresolved_cell**     555       11           4            9            7            54           9            60           6            24           1            18           57           22          139           4           7           0           0            3               3              46              23              34              14      
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<table class="table table-striped" style="width: auto !important; ">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Total </th>
+   <th style="text-align:right;"> Cancer_P0 </th>
+   <th style="text-align:right;"> Cancer_P10 </th>
+   <th style="text-align:right;"> Cancer_P12 </th>
+   <th style="text-align:right;"> Cancer_P13 </th>
+   <th style="text-align:right;"> Cancer_P16 </th>
+   <th style="text-align:right;"> Cancer_P17 </th>
+   <th style="text-align:right;"> Cancer_P18 </th>
+   <th style="text-align:right;"> Cancer_P20 </th>
+   <th style="text-align:right;"> Cancer_P22 </th>
+   <th style="text-align:right;"> Cancer_P23 </th>
+   <th style="text-align:right;"> Cancer_P24 </th>
+   <th style="text-align:right;"> Cancer_P25 </th>
+   <th style="text-align:right;"> Cancer_P26 </th>
+   <th style="text-align:right;"> Cancer_P28 </th>
+   <th style="text-align:right;"> Cancer_P5 </th>
+   <th style="text-align:right;"> Cancer_P6 </th>
+   <th style="text-align:right;"> Cancer_P7 </th>
+   <th style="text-align:right;"> Cancer_P8 </th>
+   <th style="text-align:right;"> LymphNode_P0 </th>
+   <th style="text-align:right;"> LymphNode_P20 </th>
+   <th style="text-align:right;"> LymphNode_P25 </th>
+   <th style="text-align:right;"> LymphNode_P26 </th>
+   <th style="text-align:right;"> LymphNode_P28 </th>
+   <th style="text-align:right;"> LymphNode_P5 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B_Plasma_cell </td>
+   <td style="text-align:right;"> 190 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Dendritic_cell </td>
+   <td style="text-align:right;"> 222 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> 24 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Endothelial_cell </td>
+   <td style="text-align:right;"> 250 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 36 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 28 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fibroblast </td>
+   <td style="text-align:right;"> 637 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 57 </td>
+   <td style="text-align:right;"> 38 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 55 </td>
+   <td style="text-align:right;"> 48 </td>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 104 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 39 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 31 </td>
+   <td style="text-align:right;"> 38 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Macrophage </td>
+   <td style="text-align:right;"> 125 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Malignant_cell </td>
+   <td style="text-align:right;"> 2739 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 102 </td>
+   <td style="text-align:right;"> 357 </td>
+   <td style="text-align:right;"> 214 </td>
+   <td style="text-align:right;"> 329 </td>
+   <td style="text-align:right;"> 123 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 191 </td>
+   <td style="text-align:right;"> 63 </td>
+   <td style="text-align:right;"> 78 </td>
+   <td style="text-align:right;"> 108 </td>
+   <td style="text-align:right;"> 211 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 343 </td>
+   <td style="text-align:right;"> 91 </td>
+   <td style="text-align:right;"> 217 </td>
+   <td style="text-align:right;"> 112 </td>
+   <td style="text-align:right;"> 99 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mast_cell </td>
+   <td style="text-align:right;"> 125 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Myocyte </td>
+   <td style="text-align:right;"> 51 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T_cell </td>
+   <td style="text-align:right;"> 1008 </td>
+   <td style="text-align:right;"> 184 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 121 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 269 </td>
+   <td style="text-align:right;"> 45 </td>
+   <td style="text-align:right;"> 161 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 66 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 56 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Unresolved_cell </td>
+   <td style="text-align:right;"> 555 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 54 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 60 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 24 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 57 </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 139 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> 14 </td>
+  </tr>
+</tbody>
+</table>
 
 - ***Make table of inferred cell types*** </br>
 
@@ -468,8 +759,7 @@ s.tbl=table(celltyped.seurat$cell.type, celltyped.seurat$sample.name); r.tbl=app
 ```r
 par(mar=c(7,5,0,0));barplot(tbl, las=2, ylab="Number of cells", cex.names=0.8, cex.axis=0.8)
 ```
-
-![](Sample_analysis_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](https://user-images.githubusercontent.com/36435306/83992767-58e2de00-a98c-11ea-9d32-3b63bb8dfad6.png)
 
 - **Distibution of cell types across samples** </br>
 
@@ -478,9 +768,7 @@ par(mar=c(7,5,0,0));barplot(tbl, las=2, ylab="Number of cells", cex.names=0.8, c
 par(mar=c(7,5,0,10))
 barplot(r.tbl, las=2, ylab="Proportion (%)", cex.names=0.8, cex.axis=0.8, legend.text = rownames(r.tbl), args.legend = list(x = 'right', bty='n', inset=c(-0.3,0), xpd = TRUE, cex=0.7))
 ```
-
-![](Sample_analysis_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
-
+![](https://user-images.githubusercontent.com/36435306/83992781-64360980-a98c-11ea-9e1e-5d1bb6b6698e.png)
 
 - **inferred cell types by cell typing method** </br>
 
@@ -490,8 +778,7 @@ cols=rainbow_hcl(length(levels(celltyped.seurat$cell.type))); names(cols)=levels
 p1=DimPlot(celltyped.seurat, reduction = 'tsne',group.by="cell.type",label=F,cols=cols, pt.size=0.2); p1=LabelClusters(plot = p1, id = "cell.type", size = 3)
 p1
 ```
-
-![](Sample_analysis_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](https://user-images.githubusercontent.com/36435306/83992830-99daf280-a98c-11ea-8081-8f334671a8e3.png)
 
 - **Malignant cells by inferCNV** </br>
 
@@ -500,12 +787,12 @@ p1
 p4=DimPlot(celltyped.seurat, reduction = 'tsne',group.by="malignant.st",label=F, pt.size=0.2, cols=c("grey90", "red")) 
 p4
 ```
-
-![](Sample_analysis_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](https://user-images.githubusercontent.com/36435306/83992848-a2cbc400-a98c-11ea-9365-9ae5ac515e1d.png)
 
 - **CNV score by inferCNV** </br>
 
-![](Sample_analysis_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+
+![](https://user-images.githubusercontent.com/36435306/83992887-b8d98480-a98c-11ea-99f7-9f94943ba558.png)
 
 - **Seurat clusters** </br>
 
@@ -514,8 +801,7 @@ p4
 p2=DimPlot(celltyped.seurat, reduction = 'tsne',group.by="seurat_clusters",label=F, pt.size=0.2); p2=LabelClusters(plot = p2, id = "seurat_clusters", size = 3)
 p2
 ```
-
-![](Sample_analysis_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+![](https://user-images.githubusercontent.com/36435306/83992903-ce4eae80-a98c-11ea-948e-bffe52ceae39.png)
 
 - **Samples** </br>
 
@@ -524,8 +810,7 @@ p2
 p3=DimPlot(celltyped.seurat, reduction = 'tsne',group.by="sample.name",label=F, pt.size=0.2)
 p3
 ```
-
-![](Sample_analysis_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+![](https://user-images.githubusercontent.com/36435306/83992908-d27acc00-a98c-11ea-96db-932ea1836619.png)
 
 - **Cell markers heatmap** </br>
 A heatmap shows the cell typing result and the gene expression levels of cell marker gene sets from Puram.2017.HNSCC.TME. For each method, the assigned cell types are indicated by color bars.  
@@ -538,9 +823,7 @@ draw.heatmap(seurat = celltyped.seurat,
              slot = "scale.data",
              marker="Puram.2017.HNSCC.TME")
 ```
-
-![](Sample_analysis_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
-
+![](https://user-images.githubusercontent.com/36435306/83992910-d4448f80-a98c-11ea-8aba-0f403cd2b994.png)
 
 
 ### 2.6 Example script for different customized pipeline
