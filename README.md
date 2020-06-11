@@ -1,3 +1,4 @@
+
 # scTyper: a comprehensive pipeline for the cell typing analysis of single-cell RNA-seq data
 
 
@@ -42,7 +43,8 @@ library(help="scTyper")
 
 # 4. More information
 
-- Detailed installation instruction (Fastqc, cellranger)
-- Sample analysis 
-- Documentation (function reference)
+- [Detailed installation instruction](https://github.com/omicsCore/scTyper/blob/master/vignettes/Detailed_installation_instructions.md)
+- [Sample analysis](https://github.com/omicsCore/scTyper/blob/master/vignettes/Sample_analysis.md)
+- [Documentation](https://github.com/omicsCore/scTyper/files/4763971/scTyper_reference_manual.pdf)
+
 
