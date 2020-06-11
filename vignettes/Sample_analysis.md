@@ -362,7 +362,6 @@ The scTyper package provides manually curated and pre-installed cell marker data
 - The input of marker parameter is elements of `#Identifier`, `#StudyName` columns or user can define marker list as input parameter
 - **Note**: If there is a duplicate gene in the selected marker, it is excluded from the cell typing process.
 - **Note**: If there is only one gene in the cell type of the marker, the user should use "Average" of the cell typing method.
-<br>
 - **Update of marker database** </br>
 After changing the'sigTyper.db.txt' file in the'extdata' directory to the latest version, you can use the "update.sig.db()" function to update the cell marker database.
     
