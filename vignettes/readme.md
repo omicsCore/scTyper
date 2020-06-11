@@ -43,7 +43,7 @@ library(help="scTyper")
 
 # 4. More information
 
-- Detailed installation instruction (Fastqc, cellranger)
+- [Detailed installation instruction](https://github.com/omicsCore/scTyper/blob/master/vignettes/Detailed_installation_instructions.md)
 - Sample analysis 
 - Documentation (function reference)
 
