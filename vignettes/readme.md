@@ -44,7 +44,7 @@ library(help="scTyper")
 # 4. More information
 
 - [Detailed installation instruction](https://github.com/omicsCore/scTyper/blob/master/vignettes/Detailed_installation_instructions.md)
-- Sample analysis 
+- [Sample analysis](https://github.com/omicsCore/scTyper/blob/master/vignettes/Sample_analysis.md)
 - [Documentation](https://github.com/omicsCore/scTyper/files/4763971/scTyper_reference_manual.pdf)
 
 
