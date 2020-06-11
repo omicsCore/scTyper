@@ -1,11 +1,4 @@
----
-output:   
-  html_document:
-    keep_md: yes
-  md_document:
-    variant: markdown_github
 
----
 # scTyper: a comprehensive pipeline for the cell typing analysis of single-cell RNA-seq data
 
 
