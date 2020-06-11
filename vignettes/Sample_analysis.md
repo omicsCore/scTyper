@@ -365,10 +365,10 @@ The scTyper package provides manually curated and pre-installed cell marker data
 - **Update of marker database** </br>
 After changing the'sigTyper.db.txt' file in the'extdata' directory to the latest version, you can use the "update.sig.db()" function to update the cell marker database.
     
-    ```r
-    # example
-    update.sig.db(sig.db.path = system.file(sig.db.path="extdata/sigTyper.DB.txt", package = "scTyper"), db.name=c("sigTyper.db"), output.dir=system.file("/data",package = "scTyper"))
-    ```
+```r
+# example
+update.sig.db(sig.db.path = system.file(sig.db.path="extdata/sigTyper.DB.txt", package = "scTyper"), db.name=c("sigTyper.db"), output.dir=system.file("/data",package = "scTyper"))
+```
 
 </br>
 
@@ -390,17 +390,17 @@ When `run.inferCNV=TRUE`, users should be careful with confusing parameter inser
         malignant.st: logical value of malignant cell estimated by malignant cell typing (inferCNV) </br>
 
     
-    ```r
-    # The returned object of the scTyper() function
-    celltyped.seurat
-    ```
+```r
+# The returned object of the scTyper() function
+celltyped.seurat
+```
     
-    ```
-    An object of class Seurat 
-    23686 features across 5902 samples within 1 assay 
-    Active assay: RNA (23686 features, 2000 variable features)
-     2 dimensional reductions calculated: pca, tsne
-    ```
+```
+An object of class Seurat 
+23686 features across 5902 samples within 1 assay 
+Active assay: RNA (23686 features, 2000 variable features)
+2 dimensional reductions calculated: pca, tsne
+```
 
 
  - ***Report file*** : If `report.mode=TRUE` in scTyper() parameter, the results and the executed processes are automatically documented as a report. `report.mode` is a function used to combine the results into one unified file. The report summarizes the processing steps, cell typing and clustering results, and visualizing the results plots. This may help users reproduce their analysis workflows.
