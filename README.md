@@ -88,11 +88,18 @@ library(help="scTyper")
 
 The raw data for the test data set used here can be downloaded from  “https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE103322” and further organized to run it as a test. The pre-processed (QC and other initial steps have been already processed), consists of 5,902 cells (4,541 cancer cells and 1,361 lymph node cells) and 23,686 genes extracted from 17 patients is available at GitHub **(scTyper/data/GSE103322.seurat.rda)** .
 
+```r
+#데이터 로드 스크립트
+#GSE103322.seurat.rda 해당위치에 없음
+```
 
 
-### 4.3.2 Phenotype data
+### 4.3.2 Phenotype data 
+### inferCNV 돌아갈때만 필요한 것 아닌지? Optional 표기해줘야 할듯
 Users need to make the sample phenotype information table as input for pipeline in a tabular form  **‘.csv’** format. The order of the columns must follow the example template and the names of the columns be formatted as <span style=" font-weight: bold;    color: #130CA3 !important;" >Sample_ID</span> and <span style=" font-weight: bold;    color: #130CA3 !important;" >TissueType</span>.
-We use [Pheotype information (click link)](https://github.com/omicsCore/scTyper/raw/master/data/pheno_info_public.csv) to testdata. </br>
+We use [Pheotype information (click link)](https://github.com/omicsCore/scTyper/raw/master/data/pheno_info_public.csv) to testdata. 
+클릭 링크 문구 뺄것
+</br>
 </br>
 &nbsp;&nbsp;**Sample_ID** : Sample name of single cell RNA sequencing dataset.  </br>
 &nbsp;&nbsp;**TissueType** : Type of tissue that is composed of cells with similar structure and act together to perform a specific function. </br>
@@ -127,11 +134,11 @@ Also, user can customize markers by grouping variable names with c(). </br>
                                   "KRT18", "KRT6B", "KRT15", "KRT6C", "KRTCAP3", "EPCAM", "SFN")
 ```
 
-[<span style=" font-weight: bold;    color: #0060CC !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #C1CDCD !important;" >'cell marker database.xlsx (click link)'</span>](https://github.com/omicsCore/scTyper/files/4723417/cell.marker.database.xlsx)
+[<span style=" font-weight: bold;    color: #0060CC !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #C1CDCD !important;" >'cell marker database.xlsx (click link)'</span>](https://github.com/omicsCore/scTyper/files/4723417/cell.marker.database.xlsx) (Discussion 내용으로 작성)
 The link is marker databases comprised of "scTyper.db" and "CellMarker DB".
 The marker databases are comprised of total 3,080 cell marker gene set collected from 1,764 CellMarker studies and 22 scTyper.db studies.
 
-### 4.4.5 scTyper() arguments 
+### 4.4.5 scTyper() arguments (뭐하는 function인지 설명 없음, run 뒤로 옮길것)
 To execute **scTyper**, some basic input arguments are required for proper execution. 
 User should get some knowledge and set the corresponding argument for the required process.
 
@@ -427,7 +434,9 @@ celltyped.seurat=scTyper(wd = "/data/Rpackage/scTyper",
 
  - ***final output of scTyper() is a Seurat object*** : scTyper is implemented as a wrapper function in R package, which may facilitate the subsequent analysis under R environment. Furthermore, scTyper provides a function to transform the processed data into a **Seurat object**, which is a popular data type for the subsequent analyses and biological interpretation of scRNA-seq. The Seurat object is a class allowing for the storage and manipulation of single-cell data. Seurat object was designed to allow for greater flexibility to work with all these data types in a cohesive framework. 
 
- - ***Report file*** : Finally report.mode is a function used to combine the results into one unified file. scTyper generates a report summary automatically. The document summarizes each step of the processes, the parameters used, and the results of cell typing and clustering, and visualizes the results by heatmaps and t-SNE plots (Supplementary Data). This may help users reproduce their analysis workflows.
+cell typing 결과 (cell type, cnv score 등)에 대한 설명, column name 명시해줘야 함
+
+ - ***Report file*** : Finally report.mode is a function (function x, parameter, parameter TRUE 설정시 report가 만들어진다고 기술할 것) used to combine the results into one unified file. scTyper generates a report summary automatically. The document summarizes each step of the processes, the parameters used, and the results of cell typing and clustering, and visualizes the results by heatmaps and t-SNE plots (Supplementary Data (github upload file name으로)). This may help users reproduce their analysis workflows.
  
  - ***Automatically generated output directory*** : The result files are created automatically in output directory that users setted by parameter ‘wd’ and ‘output.name’ according to your processing step.</br>
  
@@ -438,7 +447,7 @@ celltyped.seurat=scTyper(wd = "/data/Rpackage/scTyper",
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- data : Directory of RData (rda). 'seurat.rda' (final output) saved. </br>
 
 
-### 4.5.4 Result visualization
+### 4.5.4 Visualization (
 If ***“report.mode=TRUE”*** is set true in the scTyper(), the user will get a seurat object as an output.
 
 - **Final seurat object to use for analysis**
