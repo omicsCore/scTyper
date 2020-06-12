@@ -386,9 +386,9 @@ When `run.inferCNV=TRUE`, users should be careful with confusing parameter inser
  - ***final output of scTyper() is a Seurat object*** : scTyper() function returns a **Seurat object**, which is a popular data type for the subsequent analyses and biological interpretation of scRNA-seq. The seurat object includes the inferred cell type and cnv core as a result of cell typing. The Seurat object is a class allowing for the storage and manipulation of single-cell data. Seurat object was designed to allow for greater flexibility to work with all these data types in a cohesive framework. 
 
     - Analysis result column name: </br>
-        cell.type: Inferred cell type result </br>
-        cnv.score: copy number variation score estimated by malignant cell typing (inferCNV) </br>
-        malignant.st: logical value of malignant cell estimated by malignant cell typing (inferCNV) </br>
+        - cell.type: Inferred cell type result </br>
+        - cnv.score: copy number variation score estimated by malignant cell typing (inferCNV) </br>
+        - malignant.st: logical value of malignant cell estimated by malignant cell typing (inferCNV) </br>
 
 
 ```r
