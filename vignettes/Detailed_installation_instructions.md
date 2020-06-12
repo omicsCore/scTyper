@@ -21,7 +21,7 @@ library("scTyper")
 
 # 2. External dependency
 
-## 2.1 Required Program
+## 2.1 Program
 
 `scTyper` uses `FastQC` and `Cell Ranger` to process scRNA-seq dataset, based on reference data.
 
