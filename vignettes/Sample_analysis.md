@@ -25,7 +25,7 @@ We reproduce here the analysis detailed in manuscript.
 
 
 ```r
-# load test scRNA-seq datset
+# load test scRNA-seq dataset
 system("wget https://github.com/omicsCore/scTyper/blob/master/data/GSE103322.seurat.rda")
 test.seurat = get(load(file.path(getwd(), "GSE103322.seurat.rda")))
 ```
