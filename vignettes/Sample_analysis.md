@@ -377,7 +377,7 @@ update.sig.db(sig.db.path = system.file(sig.db.path="extdata/sigTyper.DB.txt", p
 
 When `run.inferCNV=TRUE`, users should be careful with confusing parameter insertion. </br>
 **feature.to.test** :	Cell group for t.test in the inferCNV process. The value is "tissue.type" or "cell.type", the column header name of the metadata in the Seurat object. </br>
-**cells.test_excluded** The value is a cell to be excluded from the inferCNV process. </br>
+**cells.test_excluded** The value is a cell to be excluded in T test from the inferCNV process. </br>
 **cells.test_reference** The value containing the classification of the reference cell to be used by the cell to infer cnv in T.test </br>
 
 
