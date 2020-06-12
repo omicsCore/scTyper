@@ -361,7 +361,7 @@ The scTyper package provides manually curated and pre-installed cell marker data
 
 - User can easily search the markers of interest from these databases, which are uniquely labeled using unified nomenclature. For example, a cell marker label ‘Puram.2017.HNSCC.TME’ was designated by concatenating the first author name of the publication (‘Puram’), publication year (‘2017’), tissue type/cancer type (‘HNSCC’), and categories of cell composition (‘TME’, tumor microenvironment).
 - The input of marker parameter is elements of `#Identifier`, `#StudyName` columns or user-defined marker list.
-- **Note**: If there is a duplicate gene in the selected marker, it is excluded from the cell typing process.
+- **Note**: If there is a duplicate gene in the selected marker, it is excluded in the cell typing process.
 - **Note**: If there is only one gene in the cell type of the marker, the user should use "Average" of the cell typing method.
 - **Update of marker database** </br>
 After changing the'sigTyper.db.txt' file in the'extdata' directory to the latest version, you can use the "update.sig.db()" function to update the cell marker database.
