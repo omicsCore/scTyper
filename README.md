@@ -16,7 +16,7 @@
 ## 3.1 Installation and loading
 Source codes for scTyper are available at : https://github.com/omicsCore/scTyper
 
-### 3.1.1 Required software
+### 3.1.1 Installation package
 scTyper runs in the R statistical computing environment. R version 3.5 or higher is required.
 
 ```r
