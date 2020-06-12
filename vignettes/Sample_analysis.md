@@ -328,6 +328,7 @@ For a detailed parameter description of the single command and its internal step
   </tr>
 </tbody>
 </table>
+
   - **Warning**: When users have pre-processed seurat object (completed with qc, Cell Ranger and Seurat processing), **seurat.object** parameter must be assigned.
  
 #### 2.3.1 **'marker'** parameter insertion of scTyper
