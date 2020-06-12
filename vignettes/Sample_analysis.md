@@ -331,7 +331,7 @@ For a detailed parameter description of the single command and its internal step
 
   - **Warning**: When users have pre-processed seurat object (completed with qc, Cell Ranger and Seurat processing), `seurat.object` parameter must be assigned.
  
-#### 2.3.1 **'marker'** parameter insertion of scTyper
+#### 2.3.1 **'marker'** parameter insertion of scTyper()
 
 The scTyper package provides manually curated and pre-installed cell marker databases comprised of 'scTyper.db' and 'CellMarker DB' for cell typing. Users can choose the cell markers of interest from [marker database](https://github.com/omicsCore/scTyper/files/4723417/cell.marker.database.xlsx).
  
@@ -373,7 +373,7 @@ update.sig.db(sig.db.path = system.file(sig.db.path="extdata/sigTyper.DB.txt", p
 
 </br>
 
-#### 2.3.2 **inferCNV** parameter description
+#### 2.3.2 **inferCNV** parameter description in scTyper()
 
 When `run.inferCNV=TRUE`, users should be careful with confusing parameter insertion. </br>
 **feature.to.test** :	Cell group for t.test in the inferCNV process. The value is "tissue.type" or "cell.type", the column header name of the metadata in the Seurat object. </br>
