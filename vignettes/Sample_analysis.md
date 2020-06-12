@@ -12,7 +12,7 @@ In order to run the entire cell typing pipeline, users need to install the *scTy
 
 scTyper uses two types of input data </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- raw scRNA-seq data of 10x genomics platform</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- pre-processed seurat object : the processing steps of ‘QC’, ‘Cell Ranger’ and ‘Seurat processing’ are done.</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- pre-processed seurat object : A seurat object in which the processing steps of'QC','Cell Ranger' and'Seurat processing' have been completed.</br>
 
 
 ## 2. Sample analysis
