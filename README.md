@@ -32,12 +32,12 @@ The Program and reference data can be found in the links below: </br>
 
 | Processing                  | library                   | 
 |----------------------------|--------------------|
-|  **global configuration** | S4Vectors, e1071, IRanges, parallel |
+|  **Global configuration** | S4Vectors, e1071, IRanges, parallel |
 |  **Quality Check** | fastqcr, grid |
 |  **Cell Ranger** | parallel |
 |  **Seurat processing** | Seurat |
 |  **Cell typing** | Seurat |
-|  **malignant.celltyping** | infercnv, utils, perm, gProfileR, GenomicRanges  |
+|  **Malignant cell Typing (inferCNV)** | infercnv, utils, perm, gProfileR, GenomicRanges  |
 |  **Report** | seurat, rmarkdown, ComplexHeatmap, reshape2, pander, ggplot2, grid, gridExtra, circlize, magrittr, knitr, kableExtra, RColorBrewer, png, grDevices, colorspace |
 
 
