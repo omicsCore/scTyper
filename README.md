@@ -71,6 +71,6 @@ library(help="scTyper")
 
 # 4. More information
 
-- [Sample analysis](https://github.com/omicsCore/scTyper/blob/master/vignettes/Sample_analysis.md)
+- [Sample analysis](http://htmlpreview.github.io/?https://github.com/omicsCore/scTyper/blob/master/vignettes/Sample_analysis.html)
 - [Documentation](https://github.com/omicsCore/scTyper/files/4763971/scTyper_reference_manual.pdf)
 
