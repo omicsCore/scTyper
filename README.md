@@ -1,4 +1,11 @@
+---
+output:   
+  html_document:
+    keep_md: yes
+  md_document:
+    variant: markdown_github
 
+---
 # scTyper: a comprehensive pipeline for the cell typing analysis of single-cell RNA-seq data
 
 
@@ -32,13 +39,12 @@ The Program and reference data can be found in the links below: </br>
 
 | Processing                  | library                   | 
 |----------------------------|--------------------|
-|  **Global configuration** | S4Vectors, e1071, IRanges, parallel |
-|  **Quality Check** | fastqcr, grid |
-|  **Cell Ranger** | parallel |
+|  **Quality Check** | fastqcr,  parallel |
+|  **Cell Ranger** | parallel  |
 |  **Seurat processing** | Seurat |
-|  **Cell typing** | Seurat |
-|  **Malignant cell Typing (inferCNV)** | infercnv, utils, perm, gProfileR, GenomicRanges  |
-|  **Report** | seurat, rmarkdown, ComplexHeatmap, reshape2, pander, ggplot2, grid, gridExtra, circlize, magrittr, knitr, kableExtra, RColorBrewer, png, grDevices, colorspace |
+|  **Cell typing** | Seurat,  parallel |
+|  **malignant.celltyping** | infercnv, perm, reshape2, gProfileR, GenomicRanges, grDevices, parallel  |
+|  **Report** | rmarkdown, ComplexHeatmap, reshape2, pander, png, ggplot2, grid, gridExtra, circlize, knitr, kableExtra, colorspace |
 
 
 ## 3.2 Installation and loading
