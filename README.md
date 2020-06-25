@@ -67,7 +67,7 @@ devtools::install_github("omicsCore/scTyper")
 library("scTyper") 
 library(help="scTyper")
 ```
-
+ 
 # 4. More information
 
 - [Sample analysis](http://htmlpreview.github.io/?https://github.com/omicsCore/scTyper/blob/master/vignettes/Sample_analysis.html)
