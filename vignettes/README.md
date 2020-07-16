@@ -69,7 +69,7 @@ library(help="scTyper")
 ```
  
 # 4. More information
- 
+
 - [Sample analysis](http://htmlpreview.github.io/?https://github.com/omicsCore/scTyper/blob/master/vignettes/Sample_analysis.html)
 - [Documentation](https://github.com/omicsCore/scTyper/files/4928754/Reference_manual.pdf)
 
