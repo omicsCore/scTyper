@@ -1,0 +1,15 @@
+Package: scTyper
+Type: Package
+Title: scTyper: a comprehensive pipeline for the cell typing analysis of single-cell RNA-seq data
+Version: 0.1.0
+Author: Ji-Hye Choi, Hye In Kim, Hyun Goo Woo
+Maintainer: Hyun Goo Woo  <HyunGooWoo@gmail.com>
+Description: scTyper provides a comprehensive and user-friendly analysis pipeline for the cell typing of scRNA-Seq data with a curated cell marker database, scTyper.db. 
+License: GPL2
+Encoding: UTF-8
+LazyData: true
+Suggests: knitr, BiocStyle
+Depends: R (>= 3.5)
+Imports: fastqcr, Seurat, infercnv, gProfileR, rmarkdown, parallel, perm, Biobase, reshape2, limma, GenomicRanges, ggplot2, grid, gridExtra, grDevices, ComplexHeatmap, circlize, png, knitr, kableExtra, pander, colorspace
+RoxygenNote: 7.1.1
+VignetteBuilder: knitr
