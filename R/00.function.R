@@ -287,11 +287,7 @@ invalid= function (x)
 #' @return test.seurat
 #' @export
 loadTestData = function(){
-  library(httr)
-  src_url <- "https://github.com/omicsCore/scTyper/raw/master/inst/extdata/GSE103322.seurat.rda"
-  file_name <- file.path(getwd(), tail(unlist(strsplit(src_url, "/")), n=1))
-  GET(src_url, write_disk(file_name, overwrite=TRUE), timeout(3600))
-  detach("package:httr", unload=TRUE)
+  file_name = system.file('extdata/GSE103322.seurat.reduced.rda', package = 'scTyper')
   test.seurat=get(load(file_name))
 
   return(test.seurat)
